@@ -1,0 +1,65 @@
+<mapper namespace="com.kh.homePageProject.mapper.MemberMapper">
+ <!-- 모든 회원 조회 -->
+    <select id="selectAllMembers" resultType="com.kh.homePageProject.model.MemberVO">
+        SELECT * FROM Member
+    </select>
+
+    <!-- 회원 조회 (ID로) -->
+    <select id="selectMemberById" resultType="com.kh.homePageProject.model.MemberVO">
+        SELECT * FROM Member WHERE ID = #{id}
+    </select>
+
+    <!-- 회원 ID 존재 여부 체크 -->
+    <select id="selectMemberCountById" resultType="int">
+        SELECT count(*) as count FROM Member WHERE ID = #{id}
+    </select>
+
+    <!-- 회원 등록 -->
+    <insert id="insertMember" parameterType="com.kh.homePageProject.model.MemberVO">
+        insert into Member (ID, PASS, NAME, PHONE, EMAIL, ZIPCODE, ADDRESS1, ADDRESS2, MONEY)
+        values (#{id}, #{pass}, #{name}, #{phone}, #{email}, #{zipcode}, #{address1}, #{address2}, 0)
+    </insert>
+
+    <!-- 회원 삭제 -->
+    <delete id="deleteMember" parameterType="String">
+        delete from member where id = #{id}
+    </delete>
+
+    <!-- 우편번호 조회 -->
+    <select id="selectZipCode" resultType="com.kh.homePageProject.model.ZipcodeVO">
+        select * from zipcode where dong like #{dong}
+    </select>
+
+    <!-- 회원 정보 업데이트 -->
+    <update id="updateMember" parameterType="com.kh.homePageProject.model.MemberVO">
+        UPDATE member 
+        SET pass = #{pass}, name = #{name}, phone = #{phone}, email = #{email}, 
+            zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} 
+        WHERE id = #{id}
+    </update>
+
+    <!-- 돈 차감 -->
+    <update id="minusMoney" parameterType="map">
+        UPDATE member 
+        SET money = money - #{money} 
+        WHERE id = #{id}
+    </update>
+
+    <!-- 회원 ID 찾기 (이름, 이메일, 전화번호로) -->
+    <select id="findMemberById" resultType="com.kh.homePageProject.model.MemberVO">
+        SELECT * FROM Member WHERE NAME = #{name} AND EMAIL = #{email} AND PHONE = #{phone}
+    </select>
+
+    <!-- 비밀번호 찾기 (ID, 이메일, 전화번호로) -->
+    <select id="findMemberByPass" resultType="com.kh.homePageProject.model.MemberVO">
+        SELECT * FROM Member WHERE ID = #{id} AND EMAIL = #{email} AND PHONE = #{phone}
+    </select>
+
+    <!-- 돈 추가 -->
+    <update id="addMoney" parameterType="map">
+        UPDATE member 
+        SET money = money + #{money} 
+        WHERE id = #{id}
+    </update>
+
+</mapper>
