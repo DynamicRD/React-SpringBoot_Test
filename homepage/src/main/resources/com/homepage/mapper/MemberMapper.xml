@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.domain.mapper.MemberMapper">
+	<!-- 데이터베이스에서 기본키를 인수로 전달한 자바빈의 프로퍼티를 통해 취득한다. -->
+	<insert id="create">
+		insert into member 
+		(ID, PASS, NAME, PHONE, EMAIL, gender, ZIPCODE, ADDRESS1, ADDRESS2) 
+		values 
+		(#{id}, #{pass}, #{name}, #{phone}, #{email}, #{gender}, #{zipcode}, #{address1}, #{address2});
+	</insert>
+	<select id="read" resultType="member">
+		SELECT board_no, title, content, writer, reg_date FROM 
+		mybatisboard WHERE board_no = #{boardNo}
+	</select>
+	<update id="update">
+		UPDATE mybatisboard SET title = #{title}, content = #{content} 
+		WHERE board_no = #{boardNo}
+	</update>
+	<delete id="delete">
+		DELETE FROM mybatisboard WHERE board_no = #{boardNo}
+	</delete>
+	<select id="list" resultType="member">
+		<![CDATA[
+		SELECT board_no, title, content, writer, reg_date
+		FROM mybatisboard WHERE board_no > 0
+		ORDER BY board_no DESC, reg_date DESC
+		]]>
+	</select>
+</mapper>
