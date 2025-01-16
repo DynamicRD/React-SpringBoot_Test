@@ -15,13 +15,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/homepage")
+@RequestMapping("/member")
 @MapperScan(basePackages = "com.homepage.mapper")
 public class MemberController {
 	// 서비스를 이용해서 접근
 	@Autowired
 	private MemberService service;
 
+	@RequestMapping(value="/loginCheck",method = RequestMethod.POST)
+	public String loginCheck(Model model,String id,String password) throws Exception{
+		Member member = new Member();
+		member.setId(id);
+		member.setPass(password);
+		
+		
+		return null;
+	}
+	
+	
+	
 	//게시판 입력 폼 요청(views/board/register.jsp)
 		@RequestMapping(value = "/register", method = RequestMethod.GET)
 		public void registerForm(Member member, Model model) throws Exception {

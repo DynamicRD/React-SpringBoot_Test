@@ -2,8 +2,11 @@ package com.homepage.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.homepage.domain.Member;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	@Override
